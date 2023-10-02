@@ -4,15 +4,17 @@ const Header = (props) => {
             <h1>{props.course}</h1>
         </>
     );
-}
+};
 
 const Content = (props) => {
     return (
         <>
-            <p>{props.part} &mdash; {props.exercises}</p>
+            <p>
+                {props.part} &mdash; {props.exercises}
+            </p>
         </>
     );
-}
+};
 
 const Total = (props) => {
     return (
@@ -20,7 +22,7 @@ const Total = (props) => {
             <p>Number of exercises {props.total}</p>
         </>
     );
-}
+};
 
 const App = () => {
     const course = 'Half stack application development';
