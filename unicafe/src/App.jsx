@@ -15,6 +15,8 @@ const Button = (props) => {
 
 const Statistics = (props) => {
     const { feedback, tot, avr, pos } = props;
+    
+    if (tot() === 0) return <h2>Help up improve by leaving feedback on our service!</h2>;
 
     return (
         <div>
