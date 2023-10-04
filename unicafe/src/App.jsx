@@ -12,9 +12,9 @@ const Button = (props) => {
         </button>
     );
 };
-//
+
 const App = () => {
-    const [reviews, setReviews] = useState([
+    const [feedback, setFeedback] = useState([
         { title: 'Good', count: 0, label: '🙂️' },
         { title: 'Neutral', count: 0, label: '😐️' },
         { title: 'Bad', count: 0, label: '🙁️' },
@@ -22,17 +22,33 @@ const App = () => {
 
     const handleReview = (idx) => {
         return () => {
-            const newValue = [...reviews];
+            const newValue = [...feedback];
             newValue[idx].count++;
-            setReviews(newValue);
+            setFeedback(newValue);
         };
+    };
+
+    const totalFeedbackCount = () => {
+        return feedback.reduce((acc, f) => (acc += f.count), 0);
+    };
+
+    const averageFeedback = () => {
+        const total = totalFeedbackCount();
+        if (total === 0) return total;
+        return (feedback[0].count - feedback[2].count) / total;
+    };
+
+    const positiveFeedback = () => {
+        const total = totalFeedbackCount();
+        if (total === 0) return total;
+        return feedback[0].count / total;
     };
 
     return (
         <div>
             <h1>Give us feedback!</h1>
             <div>
-                {reviews.map((item, i) => {
+                {feedback.map((item, i) => {
                     return (
                         <Button
                             key={i}
@@ -44,13 +60,16 @@ const App = () => {
             </div>
             <h2>Statistics:</h2>
             <ul>
-                {reviews.map((review, i) => {
+                {feedback.map((review, i) => {
                     return (
                         <li key={i}>
                             {review.title} {review.count}
                         </li>
                     );
                 })}
+                <li>Number of feedback submissions: {totalFeedbackCount()}</li>
+                <li>Average score: {averageFeedback().toFixed(2)}</li>
+                <li>Positive feedback: {positiveFeedback()} &#37;</li>
             </ul>
         </div>
     );
