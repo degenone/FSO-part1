@@ -13,10 +13,21 @@ const Button = (props) => {
     );
 };
 
+const StatisticLine = (props) => {
+    const { text, value } = props;
+
+    return (
+        <li style={{ lineHeight: '1.4' }}>
+            {text}: {value}
+        </li>
+    );
+};
+
 const Statistics = (props) => {
     const { feedback, tot, avr, pos } = props;
-    
-    if (tot() === 0) return <h2>Help up improve by leaving feedback on our service!</h2>;
+
+    if (tot() === 0)
+        return <h2>Help up improve by leaving feedback on our service!</h2>;
 
     return (
         <div>
@@ -24,20 +35,25 @@ const Statistics = (props) => {
             <ul>
                 {feedback.map((review, i) => {
                     return (
-                        <li key={i} style={{ lineHeight: '1.4' }}>
-                            {review.title} feedback submissions: {review.count}
-                        </li>
+                        <StatisticLine
+                            key={i}
+                            text={`${review.title} feedback submissions`}
+                            value={review.count}
+                        />
                     );
                 })}
-                <li style={{ lineHeight: '1.4' }}>
-                    Total number of feedback submissions: {tot()}
-                </li>
-                <li style={{ lineHeight: '1.4' }}>
-                    Average score: {avr().toFixed(2)}
-                </li>
-                <li style={{ lineHeight: '1.4' }}>
-                    Positive feedback: {pos().toFixed(2)} &#37;
-                </li>
+                <StatisticLine
+                    text={'Total number of feedback submissions'}
+                    value={tot()}
+                />
+                <StatisticLine
+                    text={'Average score'}
+                    value={avr().toFixed(2)}
+                />
+                <StatisticLine
+                    text={'Positive feedback'}
+                    value={`${pos().toFixed(2)} %`}
+                />
             </ul>
         </div>
     );
