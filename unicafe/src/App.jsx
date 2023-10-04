@@ -17,9 +17,10 @@ const StatisticLine = (props) => {
     const { text, value } = props;
 
     return (
-        <li style={{ lineHeight: '1.4' }}>
-            {text}: {value}
-        </li>
+        <tr>
+            <td>{text}</td>
+            <td>{value}</td>
+        </tr>
     );
 };
 
@@ -32,29 +33,31 @@ const Statistics = (props) => {
     return (
         <div>
             <h2>Feedback statistics:</h2>
-            <ul>
-                {feedback.map((review, i) => {
-                    return (
-                        <StatisticLine
-                            key={i}
-                            text={`${review.title} feedback submissions`}
-                            value={review.count}
-                        />
-                    );
-                })}
-                <StatisticLine
-                    text={'Total number of feedback submissions'}
-                    value={tot()}
-                />
-                <StatisticLine
-                    text={'Average score'}
-                    value={avr().toFixed(2)}
-                />
-                <StatisticLine
-                    text={'Positive feedback'}
-                    value={`${pos().toFixed(2)} %`}
-                />
-            </ul>
+            <table>
+                <tbody>
+                    {feedback.map((review, i) => {
+                        return (
+                            <StatisticLine
+                                key={i}
+                                text={`${review.title} feedback submissions`}
+                                value={review.count}
+                            />
+                        );
+                    })}
+                    <StatisticLine
+                        text={'Total number of feedback submissions'}
+                        value={tot()}
+                    />
+                    <StatisticLine
+                        text={'Average score'}
+                        value={avr().toFixed(2)}
+                    />
+                    <StatisticLine
+                        text={'Positive feedback'}
+                        value={`${pos().toFixed(2)} %`}
+                    />
+                </tbody>
+            </table>
         </div>
     );
 };
