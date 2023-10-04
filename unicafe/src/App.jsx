@@ -13,6 +13,34 @@ const Button = (props) => {
     );
 };
 
+const Statistics = (props) => {
+    const { feedback, tot, avr, pos } = props;
+
+    return (
+        <div>
+            <h2>Feedback statistics:</h2>
+            <ul>
+                {feedback.map((review, i) => {
+                    return (
+                        <li key={i} style={{ lineHeight: '1.4' }}>
+                            {review.title} feedback submissions: {review.count}
+                        </li>
+                    );
+                })}
+                <li style={{ lineHeight: '1.4' }}>
+                    Total number of feedback submissions: {tot()}
+                </li>
+                <li style={{ lineHeight: '1.4' }}>
+                    Average score: {avr().toFixed(2)}
+                </li>
+                <li style={{ lineHeight: '1.4' }}>
+                    Positive feedback: {pos().toFixed(2)} &#37;
+                </li>
+            </ul>
+        </div>
+    );
+};
+
 const App = () => {
     const [feedback, setFeedback] = useState([
         { title: 'Good', count: 0, label: '🙂️' },
@@ -58,19 +86,12 @@ const App = () => {
                     );
                 })}
             </div>
-            <h2>Statistics:</h2>
-            <ul>
-                {feedback.map((review, i) => {
-                    return (
-                        <li key={i}>
-                            {review.title} {review.count}
-                        </li>
-                    );
-                })}
-                <li>Number of feedback submissions: {totalFeedbackCount()}</li>
-                <li>Average score: {averageFeedback().toFixed(2)}</li>
-                <li>Positive feedback: {positiveFeedback()} &#37;</li>
-            </ul>
+            <Statistics
+                feedback={feedback}
+                tot={totalFeedbackCount}
+                avr={averageFeedback}
+                pos={positiveFeedback}
+            />
         </div>
     );
 };
